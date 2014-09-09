@@ -7,7 +7,7 @@ Design Decisions
 
 CoffeeScript
 ------
-Promise.IO is written in CoffeeScript, and as such its API is geared towards usage in CoffeeScript. Where possible, helper utilities are provided to make it easier for pure JavaScript usage -- but keep in mind that pure JavaScript is treated as a second-class citizen in Sonrai. 
+Promise.IO is written in CoffeeScript, and as such its API is geared towards usage in CoffeeScript. Where possible, helper utilities are provided to make it easier for pure JavaScript usage -- but keep in mind that pure JavaScript is treated as a second-class citizen in Promise.IO. 
 
 Promises
 ------
