@@ -2,10 +2,6 @@ Fancy RPC library using socket.io and promises!
 
 [![Circle CI](https://circleci.com/gh/krillr/promise.io.png?style=badge)](https://circleci.com/gh/krillr/promise.io)
 
-Why Promises?
-======
-Promises let you do really cool things, like not have to live in callback hell all your life. You can also set timeouts on your RPC calls! And in a future version, you'll be able to use the standard .notify() promise functions to get progress notifications from the remote, in the same way you would with local promises.
-
 Design Decisions
 ======
 
@@ -15,7 +11,7 @@ Promise.IO is written in CoffeeScript, and as such its API is geared towards usa
 
 Promises
 ------
-Promise.IO makes gratuitous use of Promises, because let's face it -- callbacks suck. In particular, the lightweight and efficient Q library is used. All async calls will return promises. Please code accordingly!
+Promise.IO makes gratuitous use of Promises, because let's face it -- callbacks suck. In particular, the lightweight and efficient Q library is used. Promises let you do really cool things, like not have to live in callback hell all your life. You can also set timeouts on your RPC calls! And in a future version, you'll be able to use the standard .notify() promise functions to get progress notifications from the remote, in the same way you would with local promises.
 
 CoffeeScript Server Example
 ======

@@ -16,13 +16,9 @@
   },
   "licenses": [
     {
-      "type": "Apache",
-      "url": "https://github.com/krillr/sonrai/blob/master/LICENSE-Apache"
+      "type": "Apache 2.0",
+      "url": "https://github.com/krillr/promise.io/blob/master/LICENSE"
     },
-    {
-      "type": "2.0",
-      "url": "https://github.com/krillr/sonrai/blob/master/LICENSE-2.0"
-    }
   ],
   "directories": {
     "lib": "lib"
