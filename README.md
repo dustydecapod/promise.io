@@ -2,6 +2,10 @@ Fancy RPC library using socket.io and promises!
 
 [![Circle CI](https://circleci.com/gh/krillr/promise.io.png?style=badge)](https://circleci.com/gh/krillr/promise.io)
 
+Why Promises?
+======
+Promises let you do really cool things, like not have to live in callback hell all your life. You can also set timeouts on your RPC calls! And in a future version, you'll be able to use the standard .notify() promise functions to get progress notifications from the remote, in the same way you would with local promises.
+
 Design Decisions
 ======
 
