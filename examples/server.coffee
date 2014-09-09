@@ -1,4 +1,4 @@
-PromiseIO = require './promise.io-server'
+PromiseIO = require 'promise.io/server'
 
 
 server = new PromiseIO {

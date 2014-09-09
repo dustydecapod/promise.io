@@ -1,0 +1,55 @@
+{
+  "name": "promise.io",
+  "description": "Fancy RPC library using socket.io and promises!",
+  "version": "0.1.0",
+  "homepage": "https://github.com/krillr/promise.io",
+  "author": {
+    "name": "Aaron Krill",
+    "email": "aaron@krillr.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krillr/promise.io"
+  },
+  "bugs": {
+    "url": "https://github.com/krillr/promise.io/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache",
+      "url": "https://github.com/krillr/sonrai/blob/master/LICENSE-Apache"
+    },
+    {
+      "type": "2.0",
+      "url": "https://github.com/krillr/sonrai/blob/master/LICENSE-2.0"
+    }
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "preinstall": "coffee -o lib/ -c src/*.coffee",
+    "test": "istanbul cover _mocha"
+  },
+  "dependencies": {
+    "q": "latest",
+    "socket.io": "latest",
+    "socket.io-client": "latest"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "coffee-script": "~1.7.1",
+    "chai-datetime": "*",
+    "chai-change": "*",
+    "chai-fuzzy": "*",
+    "chai": "*",
+    "chai-as-promised": "*",
+    "istanbul": "*",
+    "mocha": "*"
+  },
+  "keywords": []
+}
