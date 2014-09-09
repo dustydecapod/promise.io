@@ -15,6 +15,7 @@ class PromiseSession
     @socket.on 'exports', @parseExports
     @socket.on 'execute', @onExecute
     @socket.on 'return', @onReturn
+    @socket.on 'notify', @onNotify
 
   parseExports: (exports) =>
     @locals = {}
@@ -31,8 +32,14 @@ class PromiseSession
       @io.deferredReady.resolve @locals
 
   onExecute: (executionId, name, args) =>
+    ctx = (session, executionId) ->
+      return {
+        notify: (value) =>
+          session.notify executionId, value
+        remote: session.locals
+      }
     try
-      v = @io.exports[name].apply(@locals, args)
+      v = @io.exports[name].apply(ctx(@, executionId), args)
     catch e
       error = {
         name: e.name
@@ -43,18 +50,26 @@ class PromiseSession
       @returnValue executionId, error, null
       return
     if Q.isPromise v
-      v.then((v) => @returnValue executionId, null, v)
-        .catch((e) =>
+      v.then (v) => @returnValue executionId, null, v
+        .catch (e) =>
           error = {
             name: e.name
             message: e.message
             stack: e.stack
             arguments: e.arguments
           }
-          @returnValue executionId, error, null)
+          @returnValue executionId, error, null
+        .progress (v) => @notify executionId, v
         .done()
     else
       @returnValue executionId, null, v
+
+  notify: (executionId, value) ->
+    @socket.emit 'notify', executionId, value
+
+  onNotify: (executionId, value) =>
+    promise = @promises[executionId]
+    promise.notify value
 
   returnValue: (executionId, err, value) =>
     if err?

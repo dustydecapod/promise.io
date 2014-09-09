@@ -15,20 +15,35 @@ class TestError extends Error
 describe 'PromiseIO', ->
   before =>
     @server = new PromiseIOServer {
-      'working': (value, v2) ->
+      working: (value, v2) ->
         return "I got " + value
-      'erroring': (value) ->
+      erroring: (value) ->
         throw new TestError value
-      'promisedWorking': (value) ->
+      promisedWorking: (value) ->
         deferred = Q.defer()
         deferred.resolve "I got " + value
         return deferred.promise
-      'promisedErroring': (value) ->
+      promisedErroring: (value) ->
         deferred = Q.defer()
         deferred.reject new TestError value
         return deferred.promise
-      'callTheClient': (value) ->
-        return @clientCall value
+      callTheClient: (value) ->
+        return @remote.clientCall value
+      notifyingCall: ->
+        @notify 0
+        @notify 1
+        @notify 2
+        return
+      promisedNotifyingCall: ->
+        deferred = Q.defer()
+        i = 0
+        _ = =>
+          i += 1
+          deferred.notify i
+          if i <= 3
+            setTimeout(_, 100)
+        setTimeout(_, 100)
+        return deferred.promise
     }
 
     @server.listen 3000
@@ -59,3 +74,13 @@ describe 'PromiseIO', ->
   it 'should allow the server to call client methods from within server methods', =>
     @remote.callTheClient 'toejam'
       .should.eventually.equal "And I got: toejam"
+
+  it 'should pass notifications from calls forward', (done) =>
+    @remote.notifyingCall().progress (v) ->
+      if v == 2
+        done()
+
+  it 'should pass notifications from calls forward', (done) =>
+      @remote.promisedNotifyingCall().progress (v) =>
+        if v == 2
+          done()
