@@ -72,6 +72,8 @@ class PromiseSession
     promise.notify value
 
   returnValue: (executionId, err, value) =>
+    if value == @socket
+      value = null
     if err?
       error = new Error
       error.message = err.message
