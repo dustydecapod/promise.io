@@ -1,9 +1,15 @@
 Q = require 'q'
-uuid = require 'uuid'
+
+uuid = ->
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
+    r = Math.random()*16|0
+    v = if c == 'x' then r else (r&0x3|0x8)
+    return v.toString(16)
+  )
 
 class PromiseSession
   constructor: (@io, @socket) ->
-    @id = uuid.v4()
+    @id = uuid()
     @promises = {}
     @socket.emit 'exports', @io.constructExportsMessage()
     @socket.on 'exports', @parseExports
@@ -15,7 +21,7 @@ class PromiseSession
     for k in exports
       _ = (k) =>
         __ = (args...) =>
-          _id = uuid.v4()
+          _id = uuid()
           @promises[_id] = Q.defer()
           @socket.emit 'execute', _id, k, args
           return @promises[_id].promise
@@ -26,7 +32,6 @@ class PromiseSession
 
   onExecute: (executionId, name, args) =>
     try
-      console.log executionId, name, args
       v = @io.exports[name].apply(@locals, args)
     catch e
       error = {
