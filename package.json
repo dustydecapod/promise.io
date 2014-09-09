@@ -32,7 +32,7 @@
   },
   "scripts": {
     "preinstall": "coffee -o lib/ -c src/*.coffee",
-    "test": "istanbul cover _mocha"
+    "test": "istanbul cover _mocha -- --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "q": "latest",

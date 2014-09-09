@@ -26,7 +26,8 @@ class PromiseSession
 
   onExecute: (executionId, name, args) =>
     try
-      v = @io.exports[name].apply(args)
+      console.log executionId, name, args
+      v = @io.exports[name].apply(@locals, args)
     catch e
       error = {
         name: e.name

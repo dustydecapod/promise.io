@@ -1,4 +1,4 @@
-PromiseIO = require('./promise.io')
+PromiseIO = require('./index')
 SocketIO = require 'socket.io'
 
 class Server extends PromiseIO
