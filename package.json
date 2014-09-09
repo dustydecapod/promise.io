@@ -1,7 +1,7 @@
 {
   "name": "promise.io",
   "description": "Fancy RPC library using socket.io and promises!",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/krillr/promise.io",
   "author": {
     "name": "Aaron Krill",
