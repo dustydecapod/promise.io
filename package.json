@@ -1,7 +1,7 @@
 {
   "name": "promise.io",
   "description": "Fancy RPC library using socket.io and promises!",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/krillr/promise.io",
   "author": {
     "name": "Aaron Krill",
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "preinstall": "coffee -o . -c src/*.coffee",
-    "test": "istanbul cover _mocha -- --compilers coffee:coffee-script/register"
+    "test": "istanbul cover _mocha test/main.coffee -- --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "q": "latest",
@@ -42,7 +42,9 @@
     "chai": "*",
     "chai-as-promised": "*",
     "istanbul": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "mochify": "latest",
+    "wd": "latest"
   },
   "keywords": []
 }
