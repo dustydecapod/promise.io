@@ -27,11 +27,16 @@ describe 'PromiseIO', ->
         deferred = Q.defer()
         deferred.reject new TestError value
         return deferred.promise
+      'callTheClient': (value) ->
+        return @clientCall value
     }
 
     @server.listen 3000
 
-    @client = new PromiseIOClient {}
+    @client = new PromiseIOClient {
+      clientCall: (value) ->
+        return "And I got: " + value
+    }
     @client.connect 'http://localhost:3000'
       .then (@remote) =>
 
@@ -51,4 +56,6 @@ describe 'PromiseIO', ->
     return @remote.promisedErroring 'roflmao'
       .should.be.rejected
 
-
+  it 'should allow the server to call client methods from within server methods', =>
+    @remote.callTheClient 'toejam'
+      .should.eventually.equal "And I got: toejam"
