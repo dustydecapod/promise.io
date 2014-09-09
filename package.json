@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "q": "latest",
+    "uuid": "latest",
     "socket.io": "latest",
     "socket.io-client": "latest"
   },
