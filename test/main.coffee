@@ -13,26 +13,42 @@ class TestError extends Error
     @message = 'I hate this value: "' + value
 
 describe 'PromiseIO', ->
-  server = new PromiseIOServer {
-    'working': (value, v2) ->
-      return "I got " + value
-    'erroring': (value) ->
-      throw new TestError value
-    'promisedWorking': (value) ->
-      deferred = Q.defer()
-      deferred.resolve "I got " + value
-      return deferred
-    'promisedErrornig': (value) ->
-      deferred = Q.defer()
-      deferred.reject new TestError value
-      return deferred
-  }
+  before =>
+    @server = new PromiseIOServer {
+      'working': (value, v2) ->
+        return "I got " + value
+      'erroring': (value) ->
+        throw new TestError value
+      'promisedWorking': (value) ->
+        deferred = Q.defer()
+        deferred.resolve "I got " + value
+        return deferred.promise
+      'promisedErroring': (value) ->
+        deferred = Q.defer()
+        deferred.reject new TestError value
+        return deferred.promise
+    }
 
-  server.listen 3000
+    @server.listen 3000
 
-  it 'should execute functions properly', ->
-    client = new PromiseIOClient {}
-    client.connect 'http://localhost:3000'
-    .then (remote) ->
-      remote.working 'roflmao'
-        .should.eventually.equal 'I got roflmao'
+    @client = new PromiseIOClient {}
+    @client.connect 'http://localhost:3000'
+      .then (@remote) =>
+
+  it 'should execute functions properly', =>
+    @remote.working 'roflmao'
+      .should.eventually.equal 'I got roflmao'
+
+  it 'should reject the promise when an error arises', =>
+    return @remote.erroring 'roflmao'
+      .should.be.rejected
+
+  it 'should execute functions properly when the function returns a promise', =>
+    @remote.promisedWorking 'roflmao'
+      .should.eventually.equal 'I got roflmao'
+
+  it 'should reject the promise when an error arises and the function returns a promise', =>
+    return @remote.promisedErroring 'roflmao'
+      .should.be.rejected
+
+

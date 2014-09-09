@@ -52,7 +52,13 @@ class PromiseSession
       @returnValue executionId, null, v
 
   returnValue: (executionId, err, value) =>
-    @socket.emit 'return', executionId, err, value
+    if err?
+      error = new Error
+      error.message = err.message
+      error.name = err.name
+      error.arguments = err.arguments
+      error.stack = err.stack
+    @socket.emit 'return', executionId, error, value
 
   onReturn: (executionId, err, value) =>
     promise = @promises[executionId]
@@ -67,7 +73,9 @@ class PromiseIO
     @clients = {}
 
   constructExportsMessage: ->
-    return Object.keys @exports
+    if @exports?
+      return Object.keys @exports
+    return []
 
   onConnect: (connection) =>
     if not connection?

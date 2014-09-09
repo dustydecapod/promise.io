@@ -1,4 +1,4 @@
-PromiseIO = require 'promise.io/client'
+PromiseIO = require '../src/client'
 Q = require 'q'
 
 client = new PromiseIO
