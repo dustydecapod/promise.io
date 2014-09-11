@@ -83,3 +83,11 @@ describe 'PromiseIO', ->
       @remote.promisedNotifyingCall().progress (v) =>
         if v == 2
           done()
+
+  it 'should allow exports to be updated on the fly', (done) =>
+    @server.exports.newFunc = (input) ->
+      return "Hey! I'm new here! " + input
+    @server.sendExports().then =>
+      @remote.newFunc 'fancyInput'
+        .should.eventually.equal "Hey! I'm new here! fancyInput"
+        .should.notify done
