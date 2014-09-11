@@ -1,5 +1,4 @@
-PromiseIOServer = require '../src/server'
-PromiseIOClient = require '../src/client'
+PromiseIO = require '../src/promise.io'
 Q = require 'q'
 
 chai = require 'chai'
@@ -14,7 +13,7 @@ class TestError extends Error
 
 describe 'PromiseIO', ->
   before =>
-    @server = new PromiseIOServer {
+    @server = new PromiseIO {
       working: (value, v2) ->
         return "I got " + value
       erroring: (value) ->
@@ -48,7 +47,7 @@ describe 'PromiseIO', ->
 
     @server.listen 3000
 
-    @client = new PromiseIOClient {
+    @client = new PromiseIO {
       clientCall: (value) ->
         return "And I got: " + value
     }

@@ -94,6 +94,18 @@ class PromiseIO
     @exports = exports
     @clients = {}
 
+  connect: (url) ->
+    SocketIO = require 'socket.io-client'
+    @deferredReady = Q.defer()
+    @io  = new SocketIO url
+    @io.on 'connect', @onConnect
+    return @deferredReady.promise
+
+  listen: (port) ->
+    SocketIO = require 'socket.io'
+    @io  = new SocketIO port
+    @io.on 'connect', @onConnect
+
   constructExportsMessage: ->
     if @exports?
       return Object.keys @exports

@@ -1,9 +1,9 @@
-PromiseIO = require '../src/server'
-
+PromiseIO = require 'promise.io'
+Q = require 'q'
 
 server = new PromiseIO {
   someFunc: (input) ->
-    return 'I got: ' + input
+    @notify 1
 }
 
 server.listen 3000
