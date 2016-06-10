@@ -1,3 +1,6 @@
+###
+  eslint-disable
+###
 Q = require 'q'
 
 uuid = ->
@@ -27,7 +30,7 @@ class PromiseSession
     return @promises[executionId].promise
 
   onAcknowledgeExports: (executionId) =>
-    @promises[executionId].resolve()
+    @promises[executionId] && @promises[executionId].resolve && @promises[executionId].resolve()
 
   parseExports: (executionId, exports) =>
     for k, v of @locals

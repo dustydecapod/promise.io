@@ -24,7 +24,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "preinstall": "coffee -o lib/ -c src/*.coffee",
+    "compile": "coffee -o lib/ -c src/*.coffee",
     "test": "istanbul cover _mocha test/main.coffee -- --compilers coffee:coffee-script/register"
   },
   "dependencies": {
