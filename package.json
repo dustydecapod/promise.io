@@ -25,7 +25,7 @@
   },
   "scripts": {
     "compile": "coffee -o lib/ -c src/*.coffee",
-    "test": "istanbul cover _mocha test/main.coffee -- --compilers coffee:coffee-script/register"
+    "test": "istanbul cover node_modules/.bin/mocha test/main.coffee -- --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "q": "latest",
@@ -33,15 +33,13 @@
     "socket.io-client": "latest"
   },
   "devDependencies": {
-    "chai": "latest",
-    "chai-as-promised": "latest",
-    "coffee-script": "~1.7.1",
-    "chai-datetime": "*",
-    "chai-change": "*",
-    "chai-fuzzy": "*",
     "chai": "*",
     "chai-as-promised": "*",
-    "istanbul": "*",
+    "chai-change": "*",
+    "chai-datetime": "*",
+    "chai-fuzzy": "*",
+    "coffee-script": "~1.7.1",
+    "istanbul": "^0.4.5",
     "mocha": "*",
     "mochify": "latest",
     "wd": "latest"

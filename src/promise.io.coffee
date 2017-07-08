@@ -66,7 +66,7 @@ class PromiseSession
       }
       @returnValue executionId, error, null
       return
-    if Q.isPromise v
+    if v && typeof v.then is 'function'
       v.then (v) => @returnValue executionId, null, v
         .catch (e) =>
           error = {
